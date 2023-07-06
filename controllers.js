@@ -1,6 +1,8 @@
 const fs = require("fs");
 
 function uploadFile(req, res) {
+  console.log('uploadFile params', req.params);
+  console.log('uploadFile file', req.file);
   const id = req.params.id;
   const file = req.file;
 
@@ -11,10 +13,22 @@ function uploadFile(req, res) {
     extension = '.mp3';
   }
 
-  // Save the file with the given ID
-  fs.renameSync(file.path, `uploads/${id}${extension}`);
-
-  res.send("File uploaded successfully!");
+  try {
+    // Save the file with the given ID
+    fs.renameSync(file.path, `uploads/${id}${extension}`);
+    console.log('Fucking success');
+  
+    res.send({
+      error: false,
+      message: 'File uploaded successfully!'
+    });
+  } catch (e) {
+    res.status(500);
+    res.send({
+      error: true,
+      message: 'File uploaded successfully!'
+    });
+  }
 }
 
 function streamFile(req, res) {

@@ -1,0 +1,8 @@
+{
+  "name": "file-server",
+  "cwd": ".",
+  "script": "PORT=4009 node ./server.js",
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
