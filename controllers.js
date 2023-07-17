@@ -1,8 +1,6 @@
 const fs = require("fs");
 
 function uploadFile(req, res) {
-  console.log('uploadFile params', req.params);
-  console.log('uploadFile file', req.file);
   const id = req.params.id;
   const file = req.file;
 
@@ -16,7 +14,6 @@ function uploadFile(req, res) {
   try {
     // Save the file with the given ID
     fs.renameSync(file.path, `uploads/${id}${extension}`);
-    console.log('Fucking success');
   
     res.send({
       error: false,
@@ -32,24 +29,44 @@ function uploadFile(req, res) {
 }
 
 function streamFile(req, res) {
-  const id = req.params.id;
+  try {
+    const id = req.params.id;
+    const filePath = `./uploads/${id}.mp3`;
+    const range = req.headers.range;
+    const stat = fs.statSync(filePath);
+    const fileSize = stat.size;
 
-  // Stream the file with the given ID
-  const filePath = `uploads/${id}`;
-  const stream = fs.createReadStream(filePath);
+    if (range) {
+      const parts = range.replace(/bytes=/, '').split('-');
+      const start = parseInt(parts[0], 10);
+      const end = parts[1] ? parseInt(parts[1], 10) : fileSize - 1;
 
-  stream.on("open", () => {
-    // Set appropriate headers
-    res.set("Content-Type", "application/octet-stream");
-    res.set("Content-Disposition", `attachment; filename="${id}"`);
+      const chunkSize = end - start + 1;
+      const file = fs.createReadStream(filePath, { start, end });
+      const head = {
+        'Content-Range': `bytes ${start}-${end}/${fileSize}`,
+        'Accept-Ranges': 'bytes',
+        'Content-Length': chunkSize,
+        'Content-Type': 'audio/mpeg',
+      };
 
-    // Start streaming the file
-    stream.pipe(res);
-  });
+      res.writeHead(206, head);
+      file.pipe(res);
+    } else {
+      const head = {
+        'Content-Length': fileSize,
+        'Content-Type': 'audio/mpeg',
+      };
+      res.writeHead(200, head);
+      fs.createReadStream(filePath).pipe(res);
+    }
 
-  stream.on("error", (err) => {
-    res.status(404).send("File not found!");
-  });
+  } catch (error) {
+    res.status(404).json({
+      status: 404,
+      message: 'File not found!',
+    });
+  }
 }
 
 module.exports = {
