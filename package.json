@@ -1,16 +1,41 @@
 {
-  "name": "muzikie-file-server",
+  "name": "storage",
   "version": "0.1.0",
+  "description": "Muzikie asset storage",
+  "main": "index.js",
+  "author": "Block Made GmbH",
+  "license": "ISC",
   "scripts": {
-    "start": "pm2 start server.js"
+    "test": "npx jest ./src/test",
+    "start": "pm2 start dist/app.js",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/app.ts",
+    "build": "tsc"
   },
+  "keywords": [
+    "music",
+    "streamer",
+    "web3",
+    "blockchain"
+  ],
   "dependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.5.3",
+    "@types/multer": "^1.4.7",
+    "@types/node": "^20.4.2",
+    "@types/ws": "^8.5.5",
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "pm2": "^5.3.0",
+    "typescript": "^5.1.6"
   },
   "devDependencies": {
-    "jest": "^29.5.0",
-    "supertest": "^6.3.3"
+    "@types/cors": "^2.8.13",
+    "@types/supertest": "^2.0.12",
+    "jest": "^29.6.1",
+    "nodemon": "^3.0.1",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1"
   }
 }
