@@ -2,6 +2,7 @@ import { Router, Response } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { ASSETS_DIR, FILE_KEYS, RPC_WS_URL } from '../utils/constants';
+import type { UploadParams } from '../utils/types';
 import WebSocket from 'ws';
 
 const router = Router();
@@ -10,7 +11,7 @@ const router = Router();
 const ws = new WebSocket(RPC_WS_URL);
 
 router.get('/audio/:id/:key', async (req, res) => {
-  const { id, key } = req.params;
+  const { id, key } = req.params as UploadParams;
   const address = req.headers['address'];
 
   if (!FILE_KEYS[key] || !address) {
@@ -42,7 +43,7 @@ router.get('/audio/:id/:key', async (req, res) => {
     // Check for user's active subscription via WebSocket
     ws.send(JSON.stringify({ method: 'subscription_getAccount', params: { address } }));
     ws.on('message', (data) => {
-      const response = JSON.parse(data);
+      const response = JSON.parse(data.toString());
       if (!response.success) {
         res.status(403).send('Insufficient credit');
         return;
