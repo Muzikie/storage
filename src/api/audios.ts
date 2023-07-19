@@ -1,4 +1,4 @@
-import { Router, Response } from 'express';
+import { Router } from 'express';
 import fs from 'fs';
 import path from 'path';
 import { ASSETS_DIR, FILE_KEYS, RPC_WS_URL } from '../utils/constants';
@@ -8,7 +8,7 @@ import WebSocket from 'ws';
 const router = Router();
 
 // Create a WebSocket client
-const ws = new WebSocket(RPC_WS_URL);
+let ws = new WebSocket(RPC_WS_URL);
 
 router.get('/audio/:id/:key', async (req, res) => {
   const { id, key } = req.params as UploadParams;
@@ -69,5 +69,11 @@ router.get('/audio/:id/:key', async (req, res) => {
     });
   });
 });
+
+export function closeWebSocket() {
+  if (ws) {
+    ws.close();
+  }
+}
 
 export default router;

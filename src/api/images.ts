@@ -1,16 +1,16 @@
 import { Router } from 'express';
 import type { UploadParams } from '../utils/types';
-import { ASSETS_DIR, FILE_KEYS } from '../utils/constants';
+import { FILE_KEYS } from '../utils/constants';
 
 const router = Router();
 
 router.get('/images/:id/:key', (req, res) => {
+  console.log('images router', req.params);
   const { id, key } = req.params as UploadParams;
 
   // If no matching key, return an error
   if (!FILE_KEYS[key] || key == 'au') {
-    res.status(400).json({ error: 'Invalid key provided.' });
-    return;
+    return res.status(400).json({ error: 'Invalid key provided.' });
   }
 
   // Construct the path for the image
