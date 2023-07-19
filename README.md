@@ -1,7 +1,7 @@
 # Muzikie Storage
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/Muzikie/storage/blob/main/LICENSE)
-[![Github Actions](https://github.com/Muzikie/storage/workflows/CI/badge.svg)](https://github.com/Muzikie/storage/actions)
+[![Github Actions](https://github.com/muzikie/storage/actions/workflows/node.js.yml/badge.svg)](https://github.com/Muzikie/storage/actions)
 
 Muzikie Storage is a file storage server built by [Block Made GmbH](https://blockmade.com) for [Muzikie](https://muzikie.com).
 
