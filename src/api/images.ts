@@ -16,7 +16,7 @@ router.get('/images/:id/:key', (req, res) => {
   // Construct the path for the image
   // We are assuming all image files will have .jpg extension
   // We will modify uploaded images to correct dimension and file type
-  const imagePath = `${ASSETS_DIR}/${id}${FILE_KEYS[key]}.jpg`;
+  const imagePath = `/${id}${FILE_KEYS[key]}.jpg`;
 
   // Redirect to the static file
   res.redirect(imagePath);

@@ -10,6 +10,6 @@ app.use(cors({
 }));
 
 // Serving static files
-app.use(ASSETS_DIR, express.static(path.join(__dirname, `..${ASSETS_DIR}`)));
+app.use('/', express.static(path.join(__dirname, `.${ASSETS_DIR}`)));
 
 export default app;
