@@ -5,7 +5,6 @@ import { FILE_KEYS } from '../utils/constants';
 const router = Router();
 
 router.get('/images/:id/:key', (req, res) => {
-  console.log('images router', req.params);
   const { id, key } = req.params as UploadParams;
 
   // If no matching key, return an error
