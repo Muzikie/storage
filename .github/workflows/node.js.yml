@@ -11,18 +11,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: "${{ steps.nvm.outputs.NVMRC }}"
-
     steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
+  
+    - id: nvmrc
+      uses: browniebroke/read-nvmrc-action@v1
+
+    - uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        node-version: "${{ steps.nvmrc.outputs.node_version }}"
     - run: npm ci
     - run: npm run build
     - run: npm test
