@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import fs from 'fs';
 import path from 'path';
-import { ASSETS_DIR, FILE_KEYS, RPC_WS_URL } from '../utils/constants';
+import { Audios_DIR, FILE_KEYS, RPC_WS_URL } from '../utils/constants';
 import type { UploadParams } from '../utils/types';
 import WebSocket from 'ws';
 
@@ -19,7 +19,7 @@ router.get('/audio/:id/:key', async (req, res) => {
     return;
   }
 
-  const audioPath = path.join(__dirname, `..${ASSETS_DIR}/${id}${FILE_KEYS[key]}.mp3`);
+  const audioPath = path.join(__dirname, `..${Audios_DIR}/${id}${FILE_KEYS[key]}.mp3`);
 
   fs.stat(audioPath, (err, stats) => {
     if (err) {

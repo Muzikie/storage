@@ -1,13 +1,13 @@
 import multer from 'multer';
 import path from 'path';
-import { FILE_KEYS, ASSETS_DIR } from '../utils/constants';
+import { FILE_KEYS, Audios_DIR, Images_DIR } from '../utils/constants';
 import type { FileKeys } from '../utils/types';
 
 const regex = /^(\w{32})(\w{2})(.*)$/;
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, ASSETS_DIR);
+    file.mimetype == 'audio/mpeg' ? cb(null, Audios_DIR) : cb(null, Images_DIR)
   },
   filename: (req, file, cb) => {
     const match = file.originalname.match(regex);

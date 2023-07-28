@@ -10,7 +10,8 @@
 
 # production
 /dist
-/assets
+/images
+/audios
 
 # mocks
 mock/
