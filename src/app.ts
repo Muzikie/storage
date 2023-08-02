@@ -6,7 +6,7 @@ import uploadRouter from './api/upload';
 import imagesRouter from './api/images';
 import audiosRouter from './api/audios';
 import statusRouter from './api/status';
-import { API_PREFIX, ASSETS_DIR } from './utils/constants';
+import { API_PREFIX, IMAGES_DIR } from './utils/constants';
 
 const app = express();
 
@@ -16,7 +16,7 @@ origin: [/^https?:\/\/([a-z0-9]+[.])*muzikie[.]com$/]
 }));
 
 // Serving static files
-app.use('/', express.static(path.join(__dirname, `.${ASSETS_DIR}`)));
+app.use('/', express.static(path.join(__dirname, `.${IMAGES_DIR}`)));
 
 // registering routes
 app.use(API_PREFIX, uploadRouter);

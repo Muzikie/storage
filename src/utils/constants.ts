@@ -9,6 +9,8 @@ export const FILE_KEYS: { [key in FileKeys]: string; } = {
 
 export const API_PREFIX = '/api';
 
-export const ASSETS_DIR = './assets';
+export const IMAGES_DIR = './images';
+
+export const AUDIOS_DIR = './audios';
 
 export const RPC_WS_URL = 'ws://127.0.0.1:7887/rpc-ws';
